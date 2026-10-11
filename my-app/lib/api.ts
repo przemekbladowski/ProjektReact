@@ -283,7 +283,7 @@ export const createRemoteUser = async (payload: CreateUserPayload): Promise<User
     const data = await handleResponse<ApiUser>(response);
     return mapApiUser(data);
   } catch (error) {
-    handleFetchError(error, "utworzyć użytkownika", apiUrl);
+    return handleFetchError(error, "utworzyć użytkownika", apiUrl);
   }
 };
 
@@ -301,7 +301,7 @@ export const updateRemoteUser = async (
     const data = await handleResponse<ApiUser>(response);
     return mapApiUser(data);
   } catch (error) {
-    handleFetchError(error, "zaktualizować użytkownika", apiUrl);
+    return handleFetchError(error, "zaktualizować użytkownika", apiUrl);
   }
 };
 
@@ -321,7 +321,7 @@ export const createRemotePost = async (payload: CreatePostPayload): Promise<Post
     const data = await handleResponse<ApiPost>(response);
     return mapApiPost(data);
   } catch (error) {
-    handleFetchError(error, "utworzyć post", apiUrl);
+    return handleFetchError(error, "utworzyć post", apiUrl);
   }
 };
 
@@ -339,7 +339,7 @@ export const updateRemotePost = async (
     const data = await handleResponse<ApiPost>(response);
     return mapApiPost(data);
   } catch (error) {
-    handleFetchError(error, "zaktualizować post", apiUrl);
+    return handleFetchError(error, "zaktualizować post", apiUrl);
   }
 };
 
@@ -355,7 +355,7 @@ export const deleteRemotePost = async (postId: string): Promise<void> => {
       throw new Error(message || "Nie udało się usunąć posta");
     }
   } catch (error) {
-    handleFetchError(error, "usunąć post", apiUrl);
+    return handleFetchError(error, "usunąć post", apiUrl);
   }
 };
 
@@ -370,7 +370,7 @@ export const toggleRemoteLike = async ({ postId, action }: LikePayload): Promise
     const data = await handleResponse<ApiPost>(response);
     return mapApiPost(data);
   } catch (error) {
-    handleFetchError(error, "zmienić stan polubienia", apiUrl);
+    return handleFetchError(error, "zmienić stan polubienia", apiUrl);
   }
 };
 
@@ -385,7 +385,7 @@ export const registerRemoteShare = async ({ postId, increment = true }: SharePay
     const data = await handleResponse<ApiPost>(response);
     return mapApiPost(data);
   } catch (error) {
-    handleFetchError(error, "zarejestrować udostępnienie", apiUrl);
+    return handleFetchError(error, "zarejestrować udostępnienie", apiUrl);
   }
 };
 
@@ -403,7 +403,7 @@ export const addRemoteComment = async (payload: CommentPayload): Promise<Post> =
     const data = await handleResponse<ApiPost>(response);
     return mapApiPost(data);
   } catch (error) {
-    handleFetchError(error, "dodać komentarz", apiUrl);
+    return handleFetchError(error, "dodać komentarz", apiUrl);
   }
 };
 

@@ -8,11 +8,13 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 15
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 
-DATABASE_URL = "sqlite:///./sincenet.db"
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sincenet.db")
 
-ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:3001"]
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001"
+).split(",")
 
-DEV_USERS_FILE = Path(__file__).parent / "dev_users.txt" 
+DEV_USERS_FILE = Path(__file__).parent / "dev_users.txt"
 
 
 ALLOWED_FILE_EXTENSIONS = [
@@ -26,8 +28,11 @@ ALLOWED_FILE_EXTENSIONS = [
 
 MAX_FILE_SIZE = 10 * 1024 * 1024
 
-UPLOAD_DIR = Path(__file__).parent / "uploads"
-UPLOAD_DIR.mkdir(exist_ok=True)
+UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", str(Path(__file__).parent / "uploads")))
+try:
+    UPLOAD_DIR.mkdir(exist_ok=True)
+except OSError:
+    pass  # read-only filesystem (e.g. Vercel serverless) — uploads are best-effort there
 
 def load_dev_users():
     

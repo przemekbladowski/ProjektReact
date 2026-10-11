@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import os
 from datetime import datetime
 from typing import Generator
 
 from sqlalchemy import JSON, Column, DateTime, ForeignKey, Integer, String, Text, create_engine
 from sqlalchemy.orm import Session, declarative_base, relationship, sessionmaker
 
-DATABASE_URL = "sqlite:///./sincenet.db"
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sincenet.db")
 
 engine = create_engine(
     DATABASE_URL,
